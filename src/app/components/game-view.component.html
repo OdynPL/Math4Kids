@@ -1,8 +1,18 @@
 <div class="game-view">
   <!-- przycisk GitHub usunięty -->
   <button class="sound-toggle-btn" (click)="toggleSound()" [attr.aria-label]="soundOn ? 'Wyłącz dźwięk' : 'Włącz dźwięk'">
-    <span *ngIf="soundOn; else muted">🔊</span>
-    <ng-template #muted>🔇</ng-template>
+    <ng-container *ngIf="soundOn; else muted">
+      <svg class="sound-icon" width="48" height="48" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 11v6h4l5 5V6l-5 5H8z" fill="#34d399"/>
+        <path d="M19.5 9.5a5 5 0 010 9" stroke="#34d399" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </ng-container>
+    <ng-template #muted>
+      <svg class="sound-icon" width="48" height="48" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 11v6h4l5 5V6l-5 5H8z" fill="#f87171"/>
+        <line x1="20" y1="8" x2="8" y2="20" stroke="#f87171" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </ng-template>
   </button>
   <button class="end-game-btn" (click)="goHome()" aria-label="Zakończ grę">Zakończ grę</button>
   @if (!game.showSummary()) {
@@ -86,7 +96,7 @@
       @if (game.feedback()) {
         <div class="feedback">{{game.feedback()}}</div>
       }
-      <button class="next-btn" (click)="nextRound()" [disabled]="game.userAnswer() === null">Następne</button>
+      <button class="next-btn" *ngIf="game.userAnswer() !== null" (click)="nextRound()">Następne</button>
     </footer>
   } @else {
     <div class="summary">
@@ -106,8 +116,10 @@
           }
         </tbody>
       </table>
-      <button class="restart-btn" (click)="restart()">Zagraj ponownie</button>
-      <button class="home-btn" (click)="goHome()">Menu główne</button>
+      <div class="summary-actions">
+        <button class="restart-btn" (click)="restart()">Zagraj ponownie</button>
+        <button class="home-btn" (click)="goHome()">Menu główne</button>
+      </div>
     </div>
   }
 </div>

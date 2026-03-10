@@ -1,0 +1,14 @@
+.app-footer {
+  width: 100%;
+  padding: 1.2rem 0;
+  background: linear-gradient(90deg, #f9e79f 0%, #f1948a 100%);
+  color: #5b21b6;
+  font-family: 'Comic Sans MS', Comic Sans, cursive;
+  font-size: 1.1rem;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: 0 -2px 16px 0 #e0e7ff;
+}

@@ -1,3 +1,74 @@
+.summary {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 4px 32px 0 #b6b6e6;
+  padding: 2.5rem 3rem 2.5rem 3rem;
+}
+.summary-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+@media (max-width: 900px) {
+  .summary {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    border-radius: 1rem;
+  }
+}
+@media (max-width: 700px) {
+  .summary {
+    font-size: 0.95rem;
+    padding: 0.7rem 0.2rem 0.7rem 0.2rem;
+  }
+  .summary-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+  }
+  .restart-btn, .home-btn {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 1rem 0;
+    border-radius: 1rem;
+  }
+}
+/* Summary actions at the bottom */
+.summary {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 4px 32px 0 #b6b6e6;
+  padding: 2.5rem 3rem 2.5rem 3rem;
+}
+.summary-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+/* Sound icon styles */
+.sound-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0.2rem;
+  margin: 0 1.2rem 0 0;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+}
+.sound-icon {
+  width: 48px;
+  height: 48px;
+  display: block;
+}
 .result-num {
   background: #fbbf24;
   color: #1e293b;

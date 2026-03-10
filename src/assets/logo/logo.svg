@@ -1,0 +1,9 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="60" fill="#F9E79F"/>
+  <circle cx="70" cy="90" r="36" fill="#85C1E9"/>
+  <circle cx="186" cy="90" r="36" fill="#F1948A"/>
+  <rect x="60" y="150" width="136" height="36" rx="18" fill="#58D68D"/>
+  <text x="128" y="180" text-anchor="middle" font-family="Comic Sans MS, Comic Sans, cursive" font-size="36" fill="#fff" font-weight="bold">4</text>
+  <text x="128" y="120" text-anchor="middle" font-family="Comic Sans MS, Comic Sans, cursive" font-size="32" fill="#fff" font-weight="bold">MATH</text>
+  <text x="128" y="220" text-anchor="middle" font-family="Comic Sans MS, Comic Sans, cursive" font-size="28" fill="#fff" font-weight="bold">KIDS</text>
+</svg>

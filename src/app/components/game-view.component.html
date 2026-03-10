@@ -1,7 +1,5 @@
 <div class="game-view">
-  <a class="repo-link-btn" href="https://github.com/TwojUser/math4kids" target="_blank" rel="noopener" aria-label="Zobacz repozytorium na GitHub" title="Zobacz repozytorium na GitHub">
-    <span style="font-size:1.3em;">🐙</span> GitHub
-  </a>
+  <!-- przycisk GitHub usunięty -->
   <button class="sound-toggle-btn" (click)="toggleSound()" [attr.aria-label]="soundOn ? 'Wyłącz dźwięk' : 'Włącz dźwięk'">
     <span *ngIf="soundOn; else muted">🔊</span>
     <ng-template #muted>🔇</ng-template>

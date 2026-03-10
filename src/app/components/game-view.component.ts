@@ -165,6 +165,8 @@ export class GameViewComponent {
 
     restart() {
         this.game.restart();
+        this.shape = getRandomShape();
+        this.game.startRound();
     }
 
     goHome() {

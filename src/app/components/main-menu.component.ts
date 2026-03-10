@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainMenuComponent {
-  mode = signal<'add' | 'sub' | 'mix' | null>(null);
+  mode = signal<'add' | 'sub' | 'mul' | 'div' | 'mix' | null>(null);
 
   constructor(private router: Router) {}
 
@@ -22,7 +22,7 @@ export class MainMenuComponent {
     }
   }
 
-  setMode(mode: 'add' | 'sub' | 'mix') {
+  setMode(mode: 'add' | 'sub' | 'mul' | 'div' | 'mix') {
     this.mode.set(mode);
   }
 }

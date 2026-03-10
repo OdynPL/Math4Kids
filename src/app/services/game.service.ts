@@ -1,11 +1,11 @@
 import { Injectable, signal, computed, effect } from '@angular/core';
 import { StateService, GameState } from './state.service';
 
-export type GameMode = 'add' | 'sub' | 'mix';
+export type GameMode = 'add' | 'sub' | 'mul' | 'div' | 'mix';
 export interface RoundResult {
   left: number;
   right: number;
-  op: '+' | '-';
+  op: '+' | '-' | '×' | '÷';
   answer: number;
   user: number;
   correct: boolean;
@@ -20,7 +20,7 @@ export class GameService {
   readonly results = signal<RoundResult[]>([]);
   readonly left = signal(0);
   readonly right = signal(0);
-  readonly op = signal<'+' | '-'>('+');
+  readonly op = signal<'+' | '-' | '×' | '÷'>('+');
   readonly userAnswer = signal<number|null>(null);
   readonly feedback = signal('');
   readonly showSummary = signal(false);
@@ -81,10 +81,32 @@ export class GameService {
       this.showSummary.set(true);
       return;
     }
-    const op = this.mode() === 'mix' ? (Math.random() > 0.5 ? '+' : '-') : (this.mode() === 'add' ? '+' : '-');
-    let left = Math.floor(Math.random() * 6) + 1;
-    let right = Math.floor(Math.random() * 6) + 1;
-    if (op === '-' && left < right) [left, right] = [right, left];
+    let op: '+' | '-' | '×' | '÷';
+    switch (this.mode()) {
+      case 'add': op = '+'; break;
+      case 'sub': op = '-'; break;
+      case 'mul': op = '×'; break;
+      case 'div': op = '÷'; break;
+      case 'mix': {
+        const ops = ['+', '-', '×', '÷'];
+        op = ops[Math.floor(Math.random() * ops.length)] as any;
+        break;
+      }
+      default: op = '+';
+    }
+    let left = Math.floor(Math.random() * 10) + 1;
+    let right = Math.floor(Math.random() * 10) + 1;
+    if (op === '-') {
+      if (left < right) [left, right] = [right, left];
+    }
+    if (op === '÷') {
+      // Dzielna = iloczyn, dzielnik = right, wynik = left
+      const dzielna = left * right;
+      this.left.set(dzielna);
+      this.right.set(right);
+      this.op.set(op);
+      return;
+    }
     this.left.set(left);
     this.right.set(right);
     this.op.set(op);
@@ -93,7 +115,14 @@ export class GameService {
   submitAnswer(ans: number) {
     if (this.userAnswer() !== null) return;
     this.userAnswer.set(ans);
-    const correct = this.op() === '+' ? this.left() + this.right() : this.left() - this.right();
+    let correct: number;
+    switch (this.op()) {
+      case '+': correct = this.left() + this.right(); break;
+      case '-': correct = this.left() - this.right(); break;
+      case '×': correct = this.left() * this.right(); break;
+      case '÷': correct = this.left() / this.right(); break;
+      default: correct = this.left() + this.right();
+    }
     const isCorrect = ans === correct;
     this.results.update(r => [...r, {
       left: this.left(),

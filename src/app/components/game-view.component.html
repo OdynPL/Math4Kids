@@ -1,4 +1,8 @@
 <div class="game-view">
+  <button class="sound-toggle-btn" (click)="toggleSound()" [attr.aria-label]="soundOn ? 'Wyłącz dźwięk' : 'Włącz dźwięk'">
+    <span *ngIf="soundOn; else muted">🔊</span>
+    <ng-template #muted>🔇</ng-template>
+  </button>
   <button class="end-game-btn" (click)="goHome()" aria-label="Zakończ grę">Zakończ grę</button>
   @if (!game.showSummary()) {
     <header class="game-header">
@@ -6,29 +10,24 @@
     </header>
     <main class="game-main-3col">
       <div class="main-col left">
-        <div class="main-numbers wide">
-          <span class="num wide">{{game.left()}}</span>
-          <span class="op wide">{{game.op()}}</span>
-          <span class="num wide">{{game.right()}}</span>
-        </div>
-        <div class="main-icons split">
-          <div class="icon-group left-group">
-            @for (i of leftArray(); track i) {
-              <span [ngClass]="iconClass() + ' icon-bordered'" [style.background]="iconColor()" aria-label="ikona lewa">
-                @if (iconClass() === 'cloud') {
-                  <span class="cloud-fluff"></span>
-                }
-              </span>
-            }
+        <div class="main-numbers-sticks">
+          <div class="main-numbers wide">
+            <span class="num wide">{{game.left()}}</span>
+            <span class="op wide">{{game.op()}}</span>
+            <span class="num wide">{{game.right()}}</span>
           </div>
-          <div class="icon-group right-group">
-            @for (i of rightArray(); track i) {
-              <span [ngClass]="iconClass() + ' icon-bordered'" [style.background]="iconColor()" aria-label="ikona prawa">
-                @if (iconClass() === 'cloud') {
-                  <span class="cloud-fluff"></span>
-                }
-              </span>
-            }
+          <div class="main-icons-row">
+            <div class="icon-group left-group">
+              @for (stick of leftArray(); track stick.idx) {
+                <stick [color]="stick.color" aria-label="zapałka lewa"></stick>
+              }
+            </div>
+            <div class="icon-group op-group"></div>
+            <div class="icon-group right-group">
+              @for (stick of rightArray(); track stick.idx) {
+                <stick [color]="stick.color" aria-label="zapałka prawa"></stick>
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -37,24 +36,30 @@
       </div>
       <div class="main-col right">
         <form class="manual-answer-form" (submit)="onManualSubmit($event)">
-          <input class="manual-answer-input" type="number" min="0" max="20" [disabled]="game.userAnswer() !== null" [(ngModel)]="manualInput" name="manualInput" placeholder="Wpisz liczbę" />
+          <input class="manual-answer-input" type="number" min="0" max="100" [disabled]="game.userAnswer() !== null" [(ngModel)]="manualInput" name="manualInput" placeholder="Wpisz liczbę" />
           <button class="ans-btn" type="submit" [disabled]="game.userAnswer() !== null">OK</button>
         </form>
         <div class="main-icons">
-          @for (i of totalArray(); track i) {
-            <span [ngClass]="iconClass()" [style.background]="iconColor()" aria-label="ikona suma">
-              @if (iconClass() === 'cloud') {
-                <span class="cloud-fluff"></span>
-              }
-            </span>
+          @for (stick of totalArray(); track stick.idx) {
+            <stick [color]="stick.color" aria-label="zapałka suma"></stick>
           }
         </div>
+        @if (game.userAnswer() !== null) {
+          <div class="result-answer">
+            Wynik: <b>{{
+              game.op() === '+' ? game.left() + game.right() :
+              game.op() === '-' ? game.left() - game.right() :
+              game.op() === '×' ? game.left() * game.right() :
+              game.op() === '÷' ? game.left() / game.right() : ''
+            }}</b>
+          </div>
+        }
       </div>
     </main>
     <footer class="game-footer">
       <div class="answer-buttons-wide">
         @if (game.userAnswer() === null) {
-          @for (n of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]; track n) {
+          @for (n of [].constructor(101).keys(); track n) {
             <button class="ans-btn" (click)="submitAnswer(n)">{{n}}</button>
           }
         }

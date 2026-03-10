@@ -1,14 +1,14 @@
 import { Injectable, signal, effect, Signal } from '@angular/core';
 
 export interface GameState {
-  mode: 'add' | 'sub' | 'mix';
+  mode: 'add' | 'sub' | 'mul' | 'div' | 'mix';
   round: number;
   totalRounds: number;
   score: number;
   results: any[];
   left: number;
   right: number;
-  op: '+' | '-';
+  op: '+' | '-' | '×' | '÷';
   userAnswer: number | null;
   feedback: string;
   showSummary: boolean;

@@ -1,3 +1,32 @@
+/* Layout for numbers and sticks in columns */
+.main-numbers-sticks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.main-numbers.wide {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 2.5rem;
+}
+.main-icons-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
+  margin-top: 0.2rem;
+}
+.icon-group.left-group, .icon-group.right-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 3.5rem;
+}
+.icon-group.op-group {
+  min-width: 3.5rem;
+}
 /* End Game button in top right */
 .end-game-btn {
   position: absolute;
@@ -23,6 +52,29 @@
 }
 .game-view {
   position: relative;
+}
+
+.sound-toggle-btn {
+  position: absolute;
+  top: 2.2rem;
+  left: 2.2rem;
+  z-index: 11;
+  background: #60a5fa;
+  color: #fff;
+  font-size: 1.7rem;
+  font-weight: bold;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 8px #bae6fd;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.sound-toggle-btn:hover, .sound-toggle-btn:focus {
+  background: #2563eb;
+  color: #fff;
+  outline: 2px solid #1e40af;
+  transform: scale(1.05);
 }
 .manual-answer-form {
   display: flex;
@@ -88,6 +140,20 @@
   align-items: center;
   min-width: 520px;
   max-width: 800px;
+}
+
+.result-answer {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-top: 1.5rem;
+  background: #e0e7ff;
+  border-radius: 1.2rem;
+  padding: 0.7rem 2.2rem;
+  box-shadow: 0 2px 8px #a5b4fc;
+  text-align: center;
+  letter-spacing: 0.03em;
+  display: inline-block;
 }
 .heart {
   width: 2.2rem;
@@ -444,10 +510,19 @@
   height: 4.2rem;
 }
 .feedback {
-  font-size: 1.5rem;
+  font-size: 2.8rem;
+  font-weight: 900;
   color: #f59e42;
-  margin-bottom: 1.5rem;
-  min-height: 2rem;
+  margin-bottom: 2.2rem;
+  min-height: 3.2rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 8px #fde68a, 0 1px 2px #fbbf24;
+  border-radius: 1.2rem;
+  background: #fffbe9;
+  padding: 0.7rem 2.2rem;
+  box-shadow: 0 2px 8px #fde68a;
+  display: inline-block;
 }
 .next-btn {
   font-size: 1.5rem;

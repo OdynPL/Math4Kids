@@ -3,17 +3,25 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { GameService } from '../services/game.service';
+import { StickComponent } from './stick.component';
 
-// ...existing imports...
-const ICON_THEMES = [
-  { name: 'dot', class: 'dot', color: '#60a5fa' },
-  { name: 'flower', class: 'flower', color: '#f472b6' },
-  { name: 'box', class: 'box', color: '#fbbf24' },
-  { name: 'fruit', class: 'fruit', color: '#4ade80' },
-  { name: 'star', class: 'star', color: '#facc15' },
-  { name: 'heart', class: 'heart', color: '#fb7185' },
-  { name: 'cloud', class: 'cloud', color: '#bae6fd' },
-  { name: 'leaf', class: 'leaf', color: '#22c55e' }
+// Ścieżki do dźwięków
+const CORRECT_SOUND = 'assets/sounds/correct.mp3';
+const WRONG_SOUND = 'assets/sounds/wrong.mp3';
+
+
+// Cukierkowa paleta kolorów zapałek
+const STICK_COLORS = [
+  '#fbbf24', // żółty
+  '#60a5fa', // niebieski
+  '#f472b6', // różowy
+  '#34d399', // zielony
+  '#f87171', // czerwony
+  '#a78bfa', // fioletowy
+  '#facc15', // pastelowy żółty
+  '#38bdf8', // jasny niebieski
+  '#fb7185', // cukierkowy róż
+  '#4ade80', // miętowy
 ];
 
 function seededRandom(seed: number) {
@@ -24,13 +32,19 @@ function seededRandom(seed: number) {
 @Component({
   selector: 'game-view',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, StickComponent],
   templateUrl: './game-view.component.html',
   styleUrls: ['./game-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameViewComponent {
   manualInput: number | null = null;
+
+  soundOn = true;
+  private correctAudio = new Audio(CORRECT_SOUND);
+  private wrongAudio = new Audio(WRONG_SOUND);
+
+  private SOUND_KEY = 'math4kids-sound-on';
 
   onManualSubmit(event: Event) {
     event.preventDefault();
@@ -43,31 +57,32 @@ export class GameViewComponent {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
 
-  leftArray(): Array<number> {
-    return Array.from({ length: this.game.left() }, (_, i) => i);
-  }
-  rightArray(): Array<number> {
-    return Array.from({ length: this.game.right() }, (_, i) => i);
-  }
-  totalArray(): Array<number> {
-    return Array.from({ length: this.game.left() + this.game.right() }, (_, i) => i);
+
+
+  // Jeden kolor zapałek na rundę
+  get stickColor(): string {
+    // Kolor deterministyczny na podstawie numeru rundy
+    const seed = this.game.round() * 9999 + 42;
+    const colorIdx = Math.floor(seededRandom(seed) * STICK_COLORS.length);
+    return STICK_COLORS[colorIdx];
   }
 
-  get iconTheme() {
-    // Jeden motyw na rundę
-    const idx = Math.floor(seededRandom(this.game.round()) * ICON_THEMES.length);
-    return ICON_THEMES[idx];
+  leftArray(): Array<{ color: string, idx: number }> {
+    return Array.from({ length: this.game.left() }, (_, idx) => ({ color: this.stickColor, idx }));
   }
-
-  iconClass(): string {
-    return this.iconTheme.class;
+  rightArray(): Array<{ color: string, idx: number }> {
+    return Array.from({ length: this.game.right() }, (_, idx) => ({ color: this.stickColor, idx }));
   }
-
-  iconColor(): string {
-    return this.iconTheme.color;
+  totalArray(): Array<{ color: string, idx: number }> {
+    return Array.from({ length: this.game.left() + this.game.right() }, (_, idx) => ({ color: this.stickColor, idx }));
   }
 
   constructor() {
+    // Przywróć ustawienie dźwięku z localStorage
+    const stored = localStorage.getItem(this.SOUND_KEY);
+    if (stored !== null) {
+      this.soundOn = stored === 'true';
+    }
     this.route.queryParams.subscribe(params => {
       if (params['mode']) {
         this.game.setMode(params['mode']);
@@ -77,7 +92,25 @@ export class GameViewComponent {
   }
 
   submitAnswer(ans: number) {
+    const prevFeedback = this.game.feedback();
     this.game.submitAnswer(ans);
+    // Zagraj dźwięk po ustawieniu feedback
+    setTimeout(() => {
+      if (!this.soundOn) return;
+      const feedback = this.game.feedback();
+      if (feedback === 'Brawo!') {
+        this.correctAudio.currentTime = 0;
+        this.correctAudio.play();
+      } else if (feedback) {
+        this.wrongAudio.currentTime = 0;
+        this.wrongAudio.play();
+      }
+    }, 0);
+  }
+
+  toggleSound() {
+    this.soundOn = !this.soundOn;
+    localStorage.setItem(this.SOUND_KEY, String(this.soundOn));
   }
 
   nextRound() {

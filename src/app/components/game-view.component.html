@@ -29,22 +29,17 @@
           </div>
           <div class="main-icons-row">
             <div class="icon-group left-group">
-              @for (row of chunkArray(leftArray(), 4); track row[0]?.idx) {
+              @for (row of chunkArray(leftArray(), 10); track row[0]?.idx) {
                 <div class="icon-row">
                   @for (stick of row; track stick.idx) {
-                    <ng-container [ngSwitch]="shape">
-                      <stick *ngSwitchCase="'stick'" [color]="stick.color"></stick>
-                      <candy-shape *ngSwitchCase="'candy'" [color]="stick.color"></candy-shape>
-                      <ball-shape *ngSwitchCase="'ball'" [color]="stick.color"></ball-shape>
-                      <square-shape *ngSwitchCase="'square'" [color]="stick.color"></square-shape>
-                    </ng-container>
+                    <ng-container *ngComponentOutlet="renderShape(stick.color); injector: undefined; ngModuleFactory: undefined;"></ng-container>
                   }
                 </div>
               }
             </div>
             <div class="icon-group op-group"></div>
             <div class="icon-group right-group">
-              @for (row of chunkArray(rightArray(), 4); track row[0]?.idx) {
+              @for (row of chunkArray(rightArray(), 10); track row[0]?.idx) {
                 <div class="icon-row">
                   @for (stick of row; track stick.idx) {
                     <ng-container *ngComponentOutlet="renderShape(stick.color); injector: undefined; ngModuleFactory: undefined;"></ng-container>
@@ -74,7 +69,7 @@
           </span>
         </div>
         <div class="main-icons" *ngIf="game.userAnswer() !== null">
-          @for (row of chunkArray(totalArray(), 4); track row[0]?.idx) {
+          @for (row of chunkArray(totalArray(), 10); track row[0]?.idx) {
             <div class="icon-row">
               @for (stick of row; track stick.idx) {
                 <ng-container *ngComponentOutlet="renderShape(stick.color); injector: undefined; ngModuleFactory: undefined;"></ng-container>

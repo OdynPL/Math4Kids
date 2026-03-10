@@ -8,6 +8,25 @@ import { StickComponent } from './stick.component';
 import { CandyComponent } from './shapes/candy.component';
 import { BallComponent } from './shapes/ball.component';
 import { SquareComponent } from './shapes/square.component';
+
+import { StarComponent } from './shapes/star.component';
+import { TriangleComponent } from './shapes/triangle.component';
+import { HeartComponent } from './shapes/heart.component';
+import { DiamondComponent } from './shapes/diamond.component';
+import { PentagonComponent } from './shapes/pentagon.component';
+import { HexagonComponent } from './shapes/hexagon.component';
+import { OctagonComponent } from './shapes/octagon.component';
+import { MoonComponent } from './shapes/moon.component';
+import { CloudComponent } from './shapes/cloud.component';
+
+import { AppleComponent } from './shapes/apple.component';
+import { BananaComponent } from './shapes/banana.component';
+import { CherryComponent } from './shapes/cherry.component';
+import { GrapeComponent } from './shapes/grape.component';
+import { LemonComponent } from './shapes/lemon.component';
+import { OrangeComponent } from './shapes/orange.component';
+import { PearComponent } from './shapes/pear.component';
+import { WatermelonComponent } from './shapes/watermelon.component';
 import { chunkArray } from './chunk-array';
 
 // Ścieżki do dźwięków
@@ -32,7 +51,13 @@ const STICK_COLORS = [
 @Component({
     selector: 'game-view',
     standalone: true,
-    imports: [CommonModule, RouterModule, FormsModule, StickComponent, CandyComponent, BallComponent, SquareComponent],
+    imports: [
+        CommonModule, RouterModule, FormsModule,
+        StickComponent, CandyComponent, BallComponent, SquareComponent,
+        StarComponent, TriangleComponent, HeartComponent, DiamondComponent,
+        PentagonComponent, HexagonComponent, OctagonComponent, MoonComponent, CloudComponent,
+        AppleComponent, BananaComponent, CherryComponent, GrapeComponent, LemonComponent, OrangeComponent, PearComponent, WatermelonComponent
+    ],
     templateUrl: './game-view.component.html',
     styleUrls: ['./game-view.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -153,6 +178,23 @@ export class GameViewComponent {
             case 'candy': return CandyComponent;
             case 'ball': return BallComponent;
             case 'square': return SquareComponent;
+            case 'star': return StarComponent;
+            case 'triangle': return TriangleComponent;
+            case 'heart': return HeartComponent;
+            case 'diamond': return DiamondComponent;
+            case 'pentagon': return PentagonComponent;
+            case 'hexagon': return HexagonComponent;
+            case 'octagon': return OctagonComponent;
+            case 'moon': return MoonComponent;
+            case 'cloud': return CloudComponent;
+            case 'apple': return AppleComponent;
+            case 'banana': return BananaComponent;
+            case 'cherry': return CherryComponent;
+            case 'grape': return GrapeComponent;
+            case 'lemon': return LemonComponent;
+            case 'orange': return OrangeComponent;
+            case 'pear': return PearComponent;
+            case 'watermelon': return WatermelonComponent;
             default: return StickComponent;
         }
     }

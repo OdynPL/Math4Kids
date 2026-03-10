@@ -1,3 +1,7 @@
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
 name: Build and Deploy Angular App
 
 on:

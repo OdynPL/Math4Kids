@@ -1,3 +1,11 @@
+.manual-answer-input::-webkit-outer-spin-button,
+.manual-answer-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.manual-answer-input[type=number] {
+  -moz-appearance: textfield;
+}
 .repo-link-btn {
   position: absolute;
   top: 2.2rem;
@@ -119,7 +127,7 @@
   padding: 0.5rem 1.5rem;
   border-radius: 1rem;
   border: 2px solid #818cf8;
-  width: 6.5rem;
+  width: 16rem;
   text-align: center;
   outline: none;
   transition: border 0.2s;
@@ -527,6 +535,7 @@
   box-shadow: 0 2px 8px #a5f3fc;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
+  /* cofnięto wymuszoną szerokość i wysokość */
 }
 .ans-btn:focus {
   background: #0ea5e9;

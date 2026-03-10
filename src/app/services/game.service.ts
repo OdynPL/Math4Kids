@@ -32,7 +32,12 @@ export class GameService {
     this.stateService.load();
     const saved = this.stateService.state();
     if (saved) {
-      this.restoreState(saved);
+      // Jeśli gra się skończyła lub runda > totalRounds, resetuj do nowej gry
+      if (saved.round > this.totalRounds || saved.showSummary) {
+        this.restart();
+      } else {
+        this.restoreState(saved);
+      }
     }
     // Auto-save on any change
     effect(() => {

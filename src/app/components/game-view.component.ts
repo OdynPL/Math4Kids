@@ -74,8 +74,22 @@ export class GameViewComponent {
     rightArray(): Array<{ color: string, idx: number }> {
         return Array.from({ length: this.game.right() }, (_, idx) => ({ color: this.stickColor, idx }));
     }
+    resultValue(): number {
+        const left = this.game.left();
+        const right = this.game.right();
+        switch (this.game.op()) {
+            case '+': return left + right;
+            case '-': return left - right;
+            case '×': return left * right;
+            case '÷': return left / right;
+            default: return left + right;
+        }
+    }
     totalArray(): Array<{ color: string, idx: number }> {
-        return Array.from({ length: this.game.left() + this.game.right() }, (_, idx) => ({ color: this.stickColor, idx }));
+        const count = this.resultValue();
+        // Tylko liczby całkowite i nieujemne
+        const safeCount = Number.isFinite(count) && count > 0 ? Math.floor(count) : 0;
+        return Array.from({ length: safeCount }, (_, idx) => ({ color: this.stickColor, idx }));
     }
 
     constructor() {

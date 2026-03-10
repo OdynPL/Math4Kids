@@ -49,11 +49,21 @@
         <span class="eq-big">=</span>
       </div>
       <div class="main-col right">
-        <form class="manual-answer-form" (submit)="onManualSubmit($event)">
-          <input class="manual-answer-input" type="number" min="0" max="100" [disabled]="game.userAnswer() !== null" [(ngModel)]="manualInput" name="manualInput" placeholder="Wpisz liczbę" />
-          <button class="ans-btn" type="submit" [disabled]="game.userAnswer() !== null">OK</button>
-        </form>
-        <div class="main-icons">
+        <div style="height:4.2rem; display:flex; align-items:flex-end;">
+          <form class="manual-answer-form" (submit)="onManualSubmit($event)" *ngIf="game.userAnswer() === null">
+            <input class="manual-answer-input" type="number" min="0" max="100" [disabled]="game.userAnswer() !== null" [(ngModel)]="manualInput" name="manualInput" placeholder="Wpisz liczbę" />
+            <button class="ans-btn" type="submit" [disabled]="game.userAnswer() !== null">OK</button>
+          </form>
+          <span class="num wide result-num" *ngIf="game.userAnswer() !== null">
+            {{
+              game.op() === '+' ? game.left() + game.right() :
+              game.op() === '-' ? game.left() - game.right() :
+              game.op() === '×' ? game.left() * game.right() :
+              game.op() === '÷' ? game.left() / game.right() : ''
+            }}
+          </span>
+        </div>
+        <div class="main-icons" *ngIf="game.userAnswer() !== null">
           @for (row of chunkArray(totalArray(), 4); track row[0]?.idx) {
             <div class="icon-row">
               @for (stick of row; track stick.idx) {
@@ -62,16 +72,7 @@
             </div>
           }
         </div>
-        @if (game.userAnswer() !== null) {
-          <div class="result-answer">
-            Wynik: <b>{{
-              game.op() === '+' ? game.left() + game.right() :
-              game.op() === '-' ? game.left() - game.right() :
-              game.op() === '×' ? game.left() * game.right() :
-              game.op() === '÷' ? game.left() / game.right() : ''
-            }}</b>
-          </div>
-        }
+        <div class="answer-underline" *ngIf="game.userAnswer() === null"></div>
       </div>
     </main>
     <footer class="game-footer">

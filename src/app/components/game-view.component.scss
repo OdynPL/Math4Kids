@@ -1,3 +1,33 @@
+.result-num {
+  background: #fbbf24;
+  color: #1e293b;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 8px #fde68a;
+  display: inline-block;
+  text-align: center;
+  margin-left: 0.2rem;
+  font-size: 3.2rem;
+  min-width: 3.5rem;
+  padding: 0.5rem 1.8rem;
+  font-weight: bold;
+}
+.result-answer {
+  font-size: 2.6rem;
+  font-weight: bold;
+  color: #0369a1;
+  display: flex;
+  align-items: center;
+  height: 4.2rem;
+  margin-left: 0.2rem;
+}
+.answer-underline {
+  width: 100%;
+  height: 0.4rem;
+  background: repeating-linear-gradient(90deg, #818cf8 0 2rem, transparent 2rem 3rem);
+  border-radius: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.7rem;
+}
 .manual-answer-input::-webkit-outer-spin-button,
 .manual-answer-input::-webkit-inner-spin-button {
   -webkit-appearance: none;

@@ -1,4 +1,7 @@
 <div class="game-view">
+  <a class="release-link-btn" href="https://github.com/TwojUser/math4kids/releases/latest" target="_blank" rel="noopener" aria-label="Zobacz najnowszy release" title="Zobacz najnowszy release">
+    📦 Release
+  </a>
   <button class="sound-toggle-btn" (click)="toggleSound()" [attr.aria-label]="soundOn ? 'Wyłącz dźwięk' : 'Włącz dźwięk'">
     <span *ngIf="soundOn; else muted">🔊</span>
     <ng-template #muted>🔇</ng-template>

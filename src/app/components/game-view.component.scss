@@ -1,3 +1,10 @@
+.icon-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-bottom: 0.2rem;
+}
 /* Layout for numbers and sticks in columns */
 .main-numbers-sticks {
   display: flex;

@@ -18,14 +18,27 @@
           </div>
           <div class="main-icons-row">
             <div class="icon-group left-group">
-              @for (stick of leftArray(); track stick.idx) {
-                <stick [color]="stick.color" aria-label="zapałka lewa"></stick>
+              @for (row of chunkArray(leftArray(), 4); track row[0]?.idx) {
+                <div class="icon-row">
+                  @for (stick of row; track stick.idx) {
+                    <ng-container [ngSwitch]="shape">
+                      <stick *ngSwitchCase="'stick'" [color]="stick.color"></stick>
+                      <candy-shape *ngSwitchCase="'candy'" [color]="stick.color"></candy-shape>
+                      <ball-shape *ngSwitchCase="'ball'" [color]="stick.color"></ball-shape>
+                      <square-shape *ngSwitchCase="'square'" [color]="stick.color"></square-shape>
+                    </ng-container>
+                  }
+                </div>
               }
             </div>
             <div class="icon-group op-group"></div>
             <div class="icon-group right-group">
-              @for (stick of rightArray(); track stick.idx) {
-                <stick [color]="stick.color" aria-label="zapałka prawa"></stick>
+              @for (row of chunkArray(rightArray(), 4); track row[0]?.idx) {
+                <div class="icon-row">
+                  @for (stick of row; track stick.idx) {
+                    <ng-container *ngComponentOutlet="renderShape(stick.color); injector: undefined; ngModuleFactory: undefined;"></ng-container>
+                  }
+                </div>
               }
             </div>
           </div>
@@ -40,8 +53,12 @@
           <button class="ans-btn" type="submit" [disabled]="game.userAnswer() !== null">OK</button>
         </form>
         <div class="main-icons">
-          @for (stick of totalArray(); track stick.idx) {
-            <stick [color]="stick.color" aria-label="zapałka suma"></stick>
+          @for (row of chunkArray(totalArray(), 4); track row[0]?.idx) {
+            <div class="icon-row">
+              @for (stick of row; track stick.idx) {
+                <ng-container *ngComponentOutlet="renderShape(stick.color); injector: undefined; ngModuleFactory: undefined;"></ng-container>
+              }
+            </div>
           }
         </div>
         @if (game.userAnswer() !== null) {

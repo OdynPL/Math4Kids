@@ -1,4 +1,9 @@
+
 # Math4kids
+
+**Math4kids** to aplikacja webowa do nauki dodawania i odejmowania dla dzieci w wieku 4–7 lat, oparta o metodę patyczkową. Metoda patyczkowa polega na przedstawianiu liczb za pomocą wizualnych obiektów (np. patyczków, kropek, ikon), co ułatwia dzieciom zrozumienie pojęcia liczby i działania matematycznego poprzez manipulację konkretnymi przedmiotami zamiast abstrakcyjnych symboli.
+
+Aplikacja pozwala dzieciom rozwiązywać zadania matematyczne, przedstawiając liczby jako zestawy kolorowych ikon, które można łatwo policzyć i porównać. Dzięki temu nauka dodawania i odejmowania staje się intuicyjna, angażująca i dostosowana do potrzeb najmłodszych uczniów.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.3.
 

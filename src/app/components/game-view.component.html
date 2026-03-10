@@ -1,0 +1,89 @@
+<div class="game-view">
+  <button class="end-game-btn" (click)="goHome()" aria-label="Zakończ grę">Zakończ grę</button>
+  @if (!game.showSummary()) {
+    <header class="game-header">
+      <span class="round-label">Runda <b>{{game.round()}} / {{game.totalRounds}}</b></span>
+    </header>
+    <main class="game-main-3col">
+      <div class="main-col left">
+        <div class="main-numbers wide">
+          <span class="num wide">{{game.left()}}</span>
+          <span class="op wide">{{game.op()}}</span>
+          <span class="num wide">{{game.right()}}</span>
+        </div>
+        <div class="main-icons split">
+          <div class="icon-group left-group">
+            @for (i of leftArray(); track i) {
+              <span [ngClass]="iconClass() + ' icon-bordered'" [style.background]="iconColor()" aria-label="ikona lewa">
+                @if (iconClass() === 'cloud') {
+                  <span class="cloud-fluff"></span>
+                }
+              </span>
+            }
+          </div>
+          <div class="icon-group right-group">
+            @for (i of rightArray(); track i) {
+              <span [ngClass]="iconClass() + ' icon-bordered'" [style.background]="iconColor()" aria-label="ikona prawa">
+                @if (iconClass() === 'cloud') {
+                  <span class="cloud-fluff"></span>
+                }
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="main-col center">
+        <span class="eq-big">=</span>
+      </div>
+      <div class="main-col right">
+        <form class="manual-answer-form" (submit)="onManualSubmit($event)">
+          <input class="manual-answer-input" type="number" min="0" max="20" [disabled]="game.userAnswer() !== null" [(ngModel)]="manualInput" name="manualInput" placeholder="Wpisz liczbę" />
+          <button class="ans-btn" type="submit" [disabled]="game.userAnswer() !== null">OK</button>
+        </form>
+        <div class="main-icons">
+          @for (i of totalArray(); track i) {
+            <span [ngClass]="iconClass()" [style.background]="iconColor()" aria-label="ikona suma">
+              @if (iconClass() === 'cloud') {
+                <span class="cloud-fluff"></span>
+              }
+            </span>
+          }
+        </div>
+      </div>
+    </main>
+    <footer class="game-footer">
+      <div class="answer-buttons-wide">
+        @if (game.userAnswer() === null) {
+          @for (n of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]; track n) {
+            <button class="ans-btn" (click)="submitAnswer(n)">{{n}}</button>
+          }
+        }
+      </div>
+      @if (game.feedback()) {
+        <div class="feedback">{{game.feedback()}}</div>
+      }
+      <button class="next-btn" (click)="nextRound()" [disabled]="game.userAnswer() === null">Następne</button>
+    </footer>
+  } @else {
+    <div class="summary">
+      <h2>Podsumowanie</h2>
+      <div class="score">Wynik: {{game.score()}} / {{game.totalRounds}}</div>
+      <table>
+        <thead>
+          <tr><th>Zadanie</th><th>Twoja odp.</th><th>Poprawna</th></tr>
+        </thead>
+        <tbody>
+          @for (r of game.summary(); track r) {
+            <tr>
+              <td>{{r.left}} {{r.op}} {{r.right}}</td>
+              <td [class.good]="r.correct" [class.bad]="!r.correct">{{r.user}}</td>
+              <td>{{r.answer}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <button class="restart-btn" (click)="restart()">Zagraj ponownie</button>
+      <button class="home-btn" (click)="goHome()">Menu główne</button>
+    </div>
+  }
+</div>

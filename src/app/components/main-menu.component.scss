@@ -1,0 +1,66 @@
+.main-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+  border-radius: 2rem;
+  box-shadow: 0 4px 32px 0 #b6b6e6;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #5b21b6;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #312e81;
+  margin-bottom: 2rem;
+}
+
+.mode-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.mode-btn {
+  font-size: 1.5rem;
+  padding: 1.2rem 2.5rem;
+  border-radius: 1.5rem;
+  border: none;
+  background: #c7d2fe;
+  color: #312e81;
+  font-weight: bold;
+  box-shadow: 0 2px 8px #a5b4fc;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.mode-btn.selected, .mode-btn:focus {
+  background: #818cf8;
+  color: #fff;
+  outline: 2px solid #6366f1;
+  transform: scale(1.05);
+}
+
+.start-btn {
+  font-size: 2rem;
+  padding: 1.2rem 3rem;
+  border-radius: 2rem;
+  border: none;
+  background: #34d399;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 8px #6ee7b7;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.start-btn:disabled {
+  background: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+}

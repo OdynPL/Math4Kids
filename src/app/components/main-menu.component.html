@@ -1,0 +1,10 @@
+<div class="main-menu">
+  <h1>Math4Kids</h1>
+  <h2>Wybierz tryb gry</h2>
+  <div class="mode-buttons">
+    <button class="mode-btn" [class.selected]="mode() === 'add'" (click)="setMode('add')">Dodawanie</button>
+    <button class="mode-btn" [class.selected]="mode() === 'sub'" (click)="setMode('sub')">Odejmowanie</button>
+    <button class="mode-btn" [class.selected]="mode() === 'mix'" (click)="setMode('mix')">Mieszane</button>
+  </div>
+  <button class="start-btn" [disabled]="!mode()" (click)="startGame()">Start gry</button>
+</div>
